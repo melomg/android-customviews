@@ -1,3 +1,5 @@
 <resources>
     <string name="app_name">CustomViews</string>
+
+    <string name="melih_price_hint_zero">0</string>
 </resources>

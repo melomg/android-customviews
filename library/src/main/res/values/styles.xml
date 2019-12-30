@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <style name="Price" />
+
+    <style name="Price.Amount" parent="Widget.AppCompat.EditText">
+        <item name="android:digits">0123456789.</item>
+        <item name="android:fontFamily">sans-serif-medium</item>
+        <item name="android:hint">@string/melih_price_hint_zero</item>
+        <item name="android:imeOptions">actionDone</item>
+        <item name="android:inputType">number</item>
+        <item name="android:maxLength">13</item>
+        <item name="android:textAlignment">textEnd</item>
+        <item name="android:textColor">@color/melih_price_text_color</item>
+        <item name="android:textSize">@dimen/melih_price_amount_text_size</item>
+        <item name="fontFamily">sans-serif-medium</item>
+    </style>
+</resources>
