@@ -7,17 +7,28 @@ import android.util.AttributeSet
 import android.widget.EditText
 import androidx.annotation.IntRange
 import androidx.appcompat.view.ContextThemeWrapper
+import java.math.BigDecimal
 import java.text.DecimalFormat
-import java.text.DecimalFormatSymbols
 import java.util.*
 
 class PriceEditText @JvmOverloads constructor(
     context: Context, attrs: AttributeSet? = null, defStyleAttr: Int = 0
-) : EditText(ContextThemeWrapper(context, R.style.Price_Amount), attrs, defStyleAttr) {
+) : EditText(ContextThemeWrapper(context, R.style.Price_Value), attrs, defStyleAttr) {
 
     private var locale: Locale = Locale.getDefault()
+
     internal var decimalFormat: DecimalFormat = getDecimalFormat(locale)
     internal var maxLength: Int
+
+    var priceValue: BigDecimal = BigDecimal.ZERO
+        get() = formatPriceValueFromTextToBigDecimal(
+            text.toString(),
+            getFractionDivider()
+        )
+        set(value) {
+            field = value
+            setText(formatPriceValueFromBigDecimalToText(value, decimalFormat, maxLength))
+        }
 
     init {
         val a = context.obtainStyledAttributes(attrs, R.styleable.PriceEditText)
@@ -41,16 +52,6 @@ class PriceEditText @JvmOverloads constructor(
 
     internal fun getDecimalFormatMaxFractionDigits(): Int = decimalFormat.maximumFractionDigits
 
-    private fun getDecimalFormat(locale: Locale): DecimalFormat =
-        DecimalFormat(PRICE_FORMAT, DecimalFormatSymbols.getInstance(locale)).apply {
-            minimumFractionDigits = 0
-            maximumFractionDigits = 2
-        }
-
-    companion object {
-        private const val DEFAULT_MAX_LENGTH: Int = 13
-
-        private const val PRICE_FORMAT: String = "#,##0.00"
-    }
-
 }
+
+class MaxLengthExceededException : RuntimeException("Max length of PriceEditText is exceeded.")

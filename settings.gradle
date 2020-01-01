@@ -1,2 +1,2 @@
-include ':app', ':library'
+include ':example', ':library'
 rootProject.name='CustomViews'

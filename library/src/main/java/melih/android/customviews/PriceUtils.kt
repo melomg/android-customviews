@@ -1,16 +1,22 @@
 package melih.android.customviews
 
 import android.util.Log
+import java.math.BigDecimal
 import java.text.DecimalFormat
+import java.text.DecimalFormatSymbols
+import java.util.*
 
-internal fun formatCurrencyAmount(
+internal const val DEFAULT_MAX_LENGTH: Int = 13
+internal const val PRICE_FORMAT: String = "#,##0.00"
+
+internal fun formatPriceText(
+    text: String,
     decimalFormat: DecimalFormat,
-    amount: String,
     fractionDivider: Char
 ): String = try {
-    val formatted = amount.replace("[^0-9${fractionDivider}]".toRegex(), "")
+    val shouldAddZero = text.takeLast(2) == "${fractionDivider}0"
 
-    val shouldAddZero = formatted.takeLast(2) == "${fractionDivider}0"
+    val formatted = text.replace("[^0-9${fractionDivider}]".toRegex(), "")
 
     if (formatted.isEmpty()) {
         ""
@@ -29,6 +35,31 @@ internal fun formatCurrencyAmount(
     ""
 }
 
+internal fun formatPriceValueFromTextToBigDecimal(
+    text: String,
+    fractionDivider: Char
+): BigDecimal {
+    val formatted = text.replace("[^0-9${fractionDivider}]".toRegex(), "")
+        .replace(fractionDivider, '.')
+    return if (formatted.isEmpty()) {
+        BigDecimal.ZERO
+    } else {
+        BigDecimal.valueOf(formatted.toDouble())
+    }
+}
+
+internal fun formatPriceValueFromBigDecimalToText(
+    value: BigDecimal,
+    decimalFormat: DecimalFormat,
+    maxLength: Int
+): String {
+    val formattedText = decimalFormat.format(value.toDouble())
+    if (formattedText.length > maxLength) {
+        throw MaxLengthExceededException()
+    }
+    return formattedText
+}
+
 internal fun replaceLastDotWithFractionDivider(text: String, fractionDivider: Char): String {
     var replacedText = text
 
@@ -41,6 +72,12 @@ internal fun replaceLastDotWithFractionDivider(text: String, fractionDivider: Ch
 
     return replacedText
 }
+
+internal fun getDecimalFormat(locale: Locale): DecimalFormat =
+    DecimalFormat(PRICE_FORMAT, DecimalFormatSymbols.getInstance(locale)).apply {
+        minimumFractionDigits = 0
+        maximumFractionDigits = 2
+    }
 
 private fun hasTextMoreThanOneFractionDivider(
     replacedText: String,
