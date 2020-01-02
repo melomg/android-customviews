@@ -1,7 +1,10 @@
 apply plugin: 'maven-publish'
 
+def githubPropertiesFile = rootProject.file("github.properties")
 def githubProperties = new Properties()
-githubProperties.load(new FileInputStream(rootProject.file("github.properties")))
+if (githubPropertiesFile.exists()) {
+    githubProperties.load(githubPropertiesFile.newReader())
+}
 
 def getVersionName = { ->
     return version_name
