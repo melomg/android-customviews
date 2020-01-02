@@ -34,3 +34,11 @@ Programmatically:
 
 Changing locale will change group and fraction separator of DecimalFormat. 
 
+
+## Versioning
+
+Library uses [SemVer](http://semver.org/) for versioning. For the versions available, see the [tags on this repository](https://github.com/melomg/android-customviews/tags). 
+
+## License
+
+This project is licensed under the Apache License 2.0 - see the [LICENSE](LICENSE) file for details.
