@@ -1,4 +1,4 @@
-# android-customviews
+# android-customviews ![License](https://img.shields.io/badge/License-Apache%202.0-blue.svg)
 
 Collection of custom views I use in my Android apps.
 
