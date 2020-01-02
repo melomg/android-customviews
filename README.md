@@ -1,5 +1,9 @@
 # android-customviews
 
+Collection of custom views I use in my Android apps.
+
+Work in progress 🏗
+
 ## PriceEditText
 
 - If you would like to change `maxLength`, you can do it from layout attribute, or programmatically set it (Default `maxLength` is 13):
