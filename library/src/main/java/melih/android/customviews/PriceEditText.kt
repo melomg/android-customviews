@@ -4,16 +4,16 @@ import android.content.Context
 import android.text.InputFilter
 import android.text.InputFilter.LengthFilter
 import android.util.AttributeSet
-import android.widget.EditText
 import androidx.annotation.IntRange
 import androidx.appcompat.view.ContextThemeWrapper
+import androidx.appcompat.widget.AppCompatEditText
 import java.math.BigDecimal
 import java.text.DecimalFormat
 import java.util.*
 
 class PriceEditText @JvmOverloads constructor(
     context: Context, attrs: AttributeSet? = null, defStyleAttr: Int = 0
-) : EditText(ContextThemeWrapper(context, R.style.Price_Value), attrs, defStyleAttr) {
+) : AppCompatEditText(ContextThemeWrapper(context, R.style.Price_Value), attrs, defStyleAttr) {
 
     private var locale: Locale = Locale.getDefault()
 
