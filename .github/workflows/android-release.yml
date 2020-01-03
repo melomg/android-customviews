@@ -1,9 +1,6 @@
 name: Android Publish Release
 
 on:
-  push:
-    branches:
-      - 'release*'
   release:
     types: [published]
 
