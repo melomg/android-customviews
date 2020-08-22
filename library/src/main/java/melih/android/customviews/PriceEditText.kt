@@ -16,9 +16,10 @@ class PriceEditText @JvmOverloads constructor(
 ) : AppCompatEditText(ContextThemeWrapper(context, R.style.Price_Value), attrs, defStyleAttr) {
 
     private var locale: Locale = Locale.getDefault()
-
-    internal var decimalFormat: DecimalFormat = getDecimalFormat(locale)
     internal var maxLength: Int
+
+    var decimalFormat: DecimalFormat = getDecimalFormat(locale)
+        private set
 
     var priceValue: BigDecimal = BigDecimal.ZERO
         get() = formatPriceValueFromTextToBigDecimal(
