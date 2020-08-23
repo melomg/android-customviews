@@ -24,7 +24,7 @@ internal class PriceTextWatcher(private val editText: PriceEditText) : TextWatch
             ) {
                 editText.removeTextChangedListener(this)
 
-                current = formatPriceText(text, editText.decimalFormat, fractionDivider)
+                current = formatPriceText(text, decimalFormat, fractionDivider)
 
                 if (isNewCharAFractionDivider(text, fractionDivider)) {
                     current = current.plus(fractionDivider)

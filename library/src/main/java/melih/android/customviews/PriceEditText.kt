@@ -11,15 +11,14 @@ import java.math.BigDecimal
 import java.text.DecimalFormat
 import java.util.*
 
+var decimalFormat: DecimalFormat = getDecimalFormat(Locale.getDefault())
+    private set
+
 class PriceEditText @JvmOverloads constructor(
     context: Context, attrs: AttributeSet? = null, defStyleAttr: Int = 0
 ) : AppCompatEditText(ContextThemeWrapper(context, R.style.Price_Value), attrs, defStyleAttr) {
 
-    private var locale: Locale = Locale.getDefault()
     internal var maxLength: Int
-
-    var decimalFormat: DecimalFormat = getDecimalFormat(locale)
-        private set
 
     var priceValue: BigDecimal = BigDecimal.ZERO
         get() = formatPriceValueFromTextToBigDecimal(
